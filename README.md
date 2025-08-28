@@ -1,172 +1,101 @@
-# Project-Evaluation-System
-Project Evaluation System
-📌 Introduction
+🎓 Project Evaluation System
 
-The Project Evaluation System is a Django-based web application designed to streamline academic project assessments using customizable rubrics. It allows coordinators, panelists, and students to interact within a centralized platform for transparent and structured evaluation across multiple phases.
 
-The system supports:
+A Django-based Academic Project Evaluation System that makes grading fair, transparent, and rubric-driven.
+Designed for coordinators, students, and panelists to collaborate seamlessly.
 
-Creating teams and assigning students.
+✨ Key Features
 
-Uploading project files (per phase).
+✅ Coordinator Dashboard – Create teams, add students, track phase-wise performance
+✅ Student Dashboard – Upload GitHub repo & phase deliverables, check evaluations
+✅ Panelist Dashboard – Conduct rubric-based evaluations with 15+ criteria
+✅ Real-time Insights – Automatic average & total score calculations across phases
+✅ Multi-phase Evaluation – Manage Phase 1, 2, and 3 submissions & scores
 
-Panelist evaluations using rubrics with scoring.
-
-Real-time calculation of averages across phases.
-
-Dashboards tailored for coordinators, panelists, and students.
-
-📑 Table of Contents
-
-Features
-
-Tech Stack
-
-Installation
-
-Usage
-
-System Roles
-
-Project Structure
-
-Configuration
-
-Contributing
-
-License
-
-✨ Features
-
-Coordinator Dashboard
-
-Add students and create teams.
-
-Track phase-wise and total average marks.
-
-Student (Team) Dashboard
-
-Upload project files for each phase.
-
-View evaluations and averages.
-
-Panelist Dashboard
-
-Evaluate teams using detailed rubric criteria.
-
-Input scores for multiple performance aspects.
-
-Automatic calculation of total and average marks.
-
-Rubric-based Evaluation
-Covers aspects like:
-
-Abstract & synopsis
-
-Topic relevance
-
-Problem identification
-
-Methodology & literature survey
-
-Documentation
-
-Presentation & communication
-
-Technical knowledge & involvement
-
-Question handling & attitude
-
-🛠 Tech Stack
-
-Backend: Django 5.1.3, SQLite
-
-Frontend: Django templates, Bootstrap 5, custom CSS
-
-Language: Python 3.x
-
-Deployment: Localhost (development), extendable for production
-
-⚙️ Installation
-
-Clone the repository
-
+🖥️ Tech Stack
+Layer	Technology
+Backend	Django (Python 3.x)
+Database	SQLite (default, can switch to PostgreSQL/MySQL)
+Frontend	Django Templates + Bootstrap 5 + Custom CSS
+Deployment	Localhost (dev) → Easily extendable for production
+🚀 Getting Started
+1️⃣ Clone the repo
 git clone https://github.com/your-username/project-evaluation-system.git
 cd project-evaluation-system
 
-
-Create a virtual environment
-
+2️⃣ Create & activate a virtual environment
 python -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
+source venv/bin/activate      # On Windows: venv\Scripts\activate
 
-
-Install dependencies
-
+3️⃣ Install dependencies
 pip install -r requirements.txt
 
-
-Apply migrations
-
+4️⃣ Apply migrations
 python manage.py migrate
 
-
-Run the development server
-
+5️⃣ Run the server
 python manage.py runserver
 
-🚀 Usage
 
-Open the application at http://127.0.0.1:8000/
+➡️ Open: http://127.0.0.1:8000/
 
-Navigate via dashboards:
+📊 Dashboards
 
-Coordinator: /evaluation/coordinator/
+👨‍🏫 Coordinator → /evaluation/coordinator/
 
-Student: /evaluation/team/<team_id>/
+🧑‍🎓 Student/Team → /evaluation/team/<team_id>/
 
-Panelist: /evaluation/panelist/
-
-👥 System Roles
-
-Coordinator: Manages students, teams, and monitors evaluations.
-
-Student (Team): Uploads project documents and checks scores.
-
-Panelist: Conducts rubric-based evaluations per phase.
+🧑‍⚖️ Panelist → /evaluation/panelist/
 
 📂 Project Structure
 project-evaluation-system/
 │── manage.py
-│── project_eval_system/        # Django project settings
+│── project_eval_system/        # Project settings
 │── evaluation/                 # Core app
-│   ├── models.py               # Database models (Student, Team, Evaluation)
-│   ├── forms.py                # Team & evaluation forms
-│   ├── views.py                # Views for dashboards
+│   ├── models.py               # Database models
+│   ├── forms.py                # Forms for team & evaluations
+│   ├── views.py                # Business logic
 │   ├── urls.py                 # App routes
 │   ├── templates/evaluation/   # HTML templates
-│   └── migrations/             # Database migrations
+│   └── migrations/             # Database schema migrations
 
-🔧 Configuration
+⚙️ Configuration
 
-Database: SQLite (default). Can be switched to PostgreSQL/MySQL in settings.py.
+Database → SQLite by default (edit settings.py to use PostgreSQL/MySQL)
 
-Media Files: Uploaded project files stored under /media/.
+Media files → Uploaded repos & phase files stored under /media/
 
-Static Files: Handled via Django static configuration.
+Static files → Handled by Django static configuration
 
 🤝 Contributing
 
-Contributions are welcome! To contribute:
+Contributions make this project better 🎉
 
-Fork the repository.
+Fork the repo
 
-Create a feature branch (git checkout -b feature-name).
+Create your branch: git checkout -b feature-name
 
-Commit changes (git commit -m "Add feature").
+Commit: git commit -m "Add new feature"
 
-Push to your fork and open a Pull Request.
+Push: git push origin feature-name
+
+Open a Pull Request
+
+📸
+
+
+<img width="472" height="229" alt="image" src="https://github.com/user-attachments/assets/370113c5-243b-40c2-b606-80a80d808d52" />
+<img width="467" height="272" alt="image" src="https://github.com/user-attachments/assets/ec477869-0001-46c2-9c08-f75725bfac2d" />
+<img width="470" height="266" alt="image" src="https://github.com/user-attachments/assets/766c2943-ac20-431f-a7b1-50513ff98dbb" />
+<img width="466" height="251" alt="image" src="https://github.com/user-attachments/assets/e5ce79da-5c08-44b5-82fe-b6972c9bade5" />
+<img width="475" height="261" alt="image" src="https://github.com/user-attachments/assets/3ca8a824-0503-420c-af27-67cdf45a36b4" />
+
+
+
+
 
 📜 License
 
-This project is licensed under the MIT License – feel free to use and adapt it for academic or research purposes.
+This project is licensed under the MIT License – you’re free to use, modify, and distribute with attribution.
+
+🔥 With this system, evaluations are no longer tedious spreadsheets – everything is streamlined, rubric-driven, and transparent!
