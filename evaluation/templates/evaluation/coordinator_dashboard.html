@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coordinator Dashboard</title>
+    <style>
+        /* Base Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E8D8F2; /* Light lavender */
+            color: #2E0F47; /* Deep purple */
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #5A397A; /* Dark purple */
+        }
+
+        /* Flex Container Styling */
+        .forms-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        /* Form Styling */
+        form {
+            background-color: #A88FBF; /* Medium lavender purple */
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 45%; /* Adjusted for two-column layout */
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+            flex: 1;
+        }
+
+        input[type="text"], input[type="checkbox"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #5F4F63; /* Muted dark purple */
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #5A397A; /* Dark purple */
+            color: #E8D8F2; /* Light lavender */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2E0F47; /* Deep purple */
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #FFFFFF; /* White for contrast */
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table, th, td {
+            border: 1px solid #5F4F63; /* Muted dark purple */
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #A88FBF; /* Medium lavender purple */
+            color: #FFFFFF; /* White text */
+        }
+
+        td ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .forms-container {
+                flex-direction: column;
+            }
+
+            form {
+                max-width: 100%;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            input[type="text"] {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Coordinator Dashboard</h1>
+
+    <!-- Forms Container -->
+    <div class="forms-container">
+        <!-- Add Student Form -->
+        <form method="post">
+            <h2>Add Student</h2>
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Student Name" required>
+            <button type="submit" name="action" value="add_student">Add Student</button>
+        </form>
+
+        <!-- Create Team Form -->
+        <form method="post">
+            <h2>Create Team</h2>
+            {% csrf_token %}
+            <input type="text" name="team_name" placeholder="Team Name" required><br>
+            <input type="text" name="guide_name" placeholder="Guide Name"><br>
+            {% for student in students %}
+                <input type="checkbox" name="students" value="{{ student.id }}"> {{ student.name }}<br>
+            {% endfor %}
+            <button type="submit" name="action" value="create_team">Create Team</button>
+        </form>
+    </div>
+
+    <!-- Display Teams and Evaluations -->
+    <h2>Teams and Evaluations</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Team Name</th>
+                <th>Guide</th>
+                <th>Student Names</th>
+                <th>Phase 1 Marks</th>
+                <th>Phase 2 Marks</th>
+                <th>Phase 3 Marks</th>
+                <th>Total Average Marks</th>
+                <th>Panelists</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for team_data in teams_with_evaluations %}
+                <tr>
+                    <td>{{ team_data.team.name }}</td>
+                    <td>{{ team_data.team.guide_name|default:"N/A" }}</td>
+                    <td>
+                        <ul>
+                            {% for student in team_data.team.students.all %}
+                                <li>{{ student.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ team_data.phase_marks_avg.phase1|floatformat:2 }}</td>
+                    <td>{{ team_data.phase_marks_avg.phase2|floatformat:2 }}</td>
+                    <td>{{ team_data.phase_marks_avg.phase3|floatformat:2 }}</td>
+                    <td>{{ team_data.total_avg_marks|floatformat:2 }}</td>
+                    <td>
+                        <ul>
+                            {% for evaluation in team_data.evaluations %}
+                                <li>{{ evaluation.panelist_name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="8">No teams available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

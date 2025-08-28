@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Team Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #E8D8F2; /* Light lavender */
+            color: #2E0F47; /* Deep purple */
+        }
+        h1 {
+            text-align: center;
+            color: #2E0F47; /* Deep purple */
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+         h2, h3 {
+            color: #5A397A; /* Medium purple */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #A88FBF; /* Softer lavender */
+            color: #2E0F47; /* Deep purple */
+            border: 1px solid #5F4F63; /* Dark gray-purple */
+        }
+        table th, table td {
+            border: 1px solid #5F4F63;
+            padding: 10px;
+            text-align: center;
+        }
+        table th {
+            background-color: #5A397A; /* Medium purple */
+            color: #FFFFFF; /* White */
+        }
+        table tbody tr:nth-child(even) {
+            background-color: #E8D8F2; /* Light lavender */
+        }
+        table tbody tr:nth-child(odd) {
+            background-color: #A88FBF; /* Softer lavender */
+        }
+        form {
+            border: 1px solid #5F4F63;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #A88FBF;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, button {
+            margin-top: 5px;
+            margin-bottom: 15px;
+            padding: 8px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #5F4F63;
+            border-radius: 3px;
+            font-size: 14px;
+            background-color: #E8D8F2; /* Light lavender */
+            color: #2E0F47;
+        }
+        button {
+            background-color: #5A397A; /* Medium purple */
+            color: #FFFFFF; /* White */
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2E0F47; /* Deep purple */
+        }
+    </style>
+</head>
+<body>
+    <h1>Team Dashboard</h1>
+    <h2>{{ team.name }}</h2>
+
+    <h3>Phase-wise Marks</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Phase</th>
+                <th>Average Marks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Phase 1</td>
+                <td>{{ phase_avg.phase1|floatformat:2 }}</td>
+            </tr>
+            <tr>
+                <td>Phase 2</td>
+                <td>{{ phase_avg.phase2|floatformat:2 }}</td>
+            </tr>
+            <tr>
+                <td>Phase 3</td>
+                <td>{{ phase_avg.phase3|floatformat:2 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Total Average Marks</h3>
+    <p>{{ total_average_marks|floatformat:2 }}</p>
+
+    <h2>Upload GitHub Repository and Phase Files</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="id_github_repo">GitHub Repository Link:</label>
+            {{ form.github_repo }}
+        </div>
+        <div>
+            <label for="id_phase1_file">Upload Phase 1 File:</label>
+            {{ form.phase1_file }}
+        </div>
+        <div>
+            <label for="id_phase2_file">Upload Phase 2 File:</label>
+            {{ form.phase2_file }}
+        </div>
+        <div>
+            <label for="id_phase3_file">Upload Phase 3 File:</label>
+            {{ form.phase3_file }}
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
